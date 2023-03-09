@@ -1,2 +1,2 @@
 # shellscripting
-This is a repository createdto publish all the bash basics and automation
+This is a repository created to publish all the bash basics and automation
