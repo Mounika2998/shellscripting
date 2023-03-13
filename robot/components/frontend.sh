@@ -24,7 +24,7 @@ fi
 echo -n "Dowloading the frontend compoment:"
 curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
 
-if[$? -eq 0 ] ; then
+if[ $? -eq 0 ] ; then
     echo -e "\e[32m Sucess \e[0m"
 else
     echo -e "\e[31m failure \e[0m"
@@ -35,7 +35,7 @@ echo -n "Performing the cleanup of old frontend component:"
 cd /usr/share/nginx/html
 rm -rf *  &>> /tmp/frontend
 
-if[$? -eq 0] ; then
+if[ $? -eq 0 ] ; then
     echo -e "\e[32m Sucess \e[0m"
 else
     echo -e "\e[31m failure \e[0m"
@@ -45,7 +45,7 @@ fi
 
 echo -n "copying the downloaded frontend content:"
 unzip /tmp/frontend.zip &>> /tmp/frontend
-if[$? -eq 0] ; then
+if[ $? -eq 0 ] ; then
     echo -e "\e[32m Sucess \e[0m"
 else
     echo -e "\e[31m failure \e[0m"
