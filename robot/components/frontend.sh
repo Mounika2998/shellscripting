@@ -7,6 +7,8 @@ ID=$(id -u)
 if [ "$ID" -ne 0 ] ; then
     echo -e "\e[31m you need to be root user to execute this command or prefix sudo before the command \e[0m"
     exit 1
+
+fi    
 yum install nginx -y
 
 curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
