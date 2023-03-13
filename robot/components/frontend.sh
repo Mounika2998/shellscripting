@@ -57,8 +57,18 @@ mv static/* .
 rm -rf frontend-main README.md
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
 
+echo -n "Starting the service:"
+
 systemctl enable nginx &>> /tmp/frontend
 systemctl restart nginx &>> /tmp/frontend
+
+if [ $? -eq 0 ] ; then
+        echo -e "\e[32m Sucess \e[0m"
+    else
+        echo -e "\e[31m failure \e[0m"
+        exit 2
+
+fi
 
 
 
