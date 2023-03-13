@@ -12,18 +12,19 @@ fi
 echo -n "Installing the Nginx:"  
 yum install nginx -y &>> /tmp/frontend
 
-if[$? -eq 0] ; then
-    echo -e "\e[32m Sucess \e[0m"
-else
-    echo -e "\e[31m failure \e[0m"
-    exit 2
+if [ $? -eq 0 ] ; then 
+        echo -e "\e[32m Success \e[0m"
+    else 
+        echo -e "\e[31m Failure \e[0m"
+        exit 2
+fi 
 
-fi
+
 
 echo -n "Dowloading the frontend compoment:"
 curl -s -L -o /tmp/frontend.zip "https://github.com/stans-robot-project/frontend/archive/main.zip"
 
-if[$? -eq 0] ; then
+if[$? -eq 0 ] ; then
     echo -e "\e[32m Sucess \e[0m"
 else
     echo -e "\e[31m failure \e[0m"
