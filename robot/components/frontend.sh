@@ -1,6 +1,7 @@
 #!/bin/bash
 echo "I am Frontend"
 COMPONENT=frontend
+LogFile=/tmp/$COMPONENT.log
 
 set -e
 ID=$(id -u)
@@ -21,7 +22,7 @@ stat() {
 }
 
 echo -n "Installing the Nginx:"  
-yum install nginx -y &>> /tmp/frontend.log
+yum install nginx -y &>> $LogFile
 stat $?
 
 
@@ -34,8 +35,7 @@ curl -s -L -o /tmp/$COMPONENT.zip "https://github.com/stans-robot-project/$COMPO
 stat $?
 echo -n "Performing the cleanup of old $COMPONENT component:"
 cd /usr/share/nginx/html
-rm -rf *  &>> /tmp/$COMPONENT.log
-
+rm -rf *  &>> $LogFile
 stat $?
 
 echo -n "copying the downloaded $COMPONENT content:"
@@ -50,9 +50,8 @@ mv localhost.conf /etc/nginx/default.d/roboshop.conf
 
 echo -n "Starting the service:"
 
-systemctl enable nginx &>> /tmp/$COMPONENT.log
-systemctl restart nginx &>> /tmp/$COMPONENT.log
-
+systemctl enable nginx &>> $LogFile
+systemctl restart nginx &>> $LogFile
 stat $?
 
 
