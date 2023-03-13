@@ -4,7 +4,7 @@ echo "I am Frontend"
 set -e
 ID=$(id -u)
 
-if["$ID" -ne 0]; then
+if [ "$ID" -ne 0 ] ; then
     echo -e "\e[31m you need to be root user to execute this command or prefix sudo before the command \e[0m"
     exit 1
 yum install nginx -y
