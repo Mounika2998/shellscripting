@@ -35,21 +35,21 @@ echo -n "Performing the cleanup of old frontend component:"
 cd /usr/share/nginx/html
 rm -rf *  &>> /tmp/frontend
 
-if[ $? -eq 0 ] ; then
-    echo -e "\e[32m Sucess \e[0m"
-else
-    echo -e "\e[31m failure \e[0m"
-    exit 2
+if [ $? -eq 0 ] ; then
+        echo -e "\e[32m Sucess \e[0m"
+    else
+        echo -e "\e[31m failure \e[0m"
+        exit 2
 
 fi
 
 echo -n "copying the downloaded frontend content:"
 unzip /tmp/frontend.zip &>> /tmp/frontend
-if[ $? -eq 0 ] ; then
-    echo -e "\e[32m Sucess \e[0m"
-else
-    echo -e "\e[31m failure \e[0m"
-    exit 2
+if [ $? -eq 0 ] ; then
+        echo -e "\e[32m Sucess \e[0m"
+    else
+        echo -e "\e[31m failure \e[0m"
+        exit 2
 
 fi
 mv frontend-main/* .
