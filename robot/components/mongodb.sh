@@ -3,7 +3,7 @@ echo "I am mongodb"
 COMPONENT=mongodb
 LogFile=/tmp/$COMPONENT.log
 
-set -e
+#set -e
 ID=$(id -u)
 
 if [ "$ID" -ne 0 ] ; then
