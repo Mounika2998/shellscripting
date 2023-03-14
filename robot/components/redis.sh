@@ -22,7 +22,7 @@ stat() {
     fi 
 }
 echo -n "Configuring the $COMPONENT repo:"
-curl -L https://raw.githubusercontent.com/stans-robot-project/redis/main/redis.repo -o /etc/yum.repos.d/redis.repo
+curl -L https://raw.githubusercontent.com/stans-robot-project/redis/main/redis.repo -o /etc/yum.repos.d/redis.repo  &>> $LogFile
 stat $?
 
 echo -n "Installing the $COMPONENT server:"
