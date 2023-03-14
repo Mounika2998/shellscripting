@@ -27,7 +27,9 @@ if [ $? -ne 0 ] ; then
     echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';" | mysql --connect-expired-password -uroot -p"${DEFAULT_ROOT_PWD}" &>> $LogFile
     stat $?
 fi
-
-echo -n "Uninstalling the password validation plugin"
-echo "uninstall plugin validate_password;" | mysql -uroot -pRoboShop@1 &>> $LogFile
-stat $?
+#Ensure you run this only when the passowrd validate plugin exists
+echo "show plugins;" | mysql -uroot -pRoboShop@1  |grep validate_password &>> $LogFile
+if [ $? -eq 0 ] ; then
+    echo -n "Uninstalling the password validation plugin : "
+    echo "uninstall plugin validate_password;" | mysql -uroot -pRoboShop@1 &>> $LogFile
+    stat $?
