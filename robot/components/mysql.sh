@@ -17,7 +17,7 @@ systemctl start mysqld   &>> $LogFile
 stat $?
 
 echo -n "Grab the default password:"
-DEFAULT_ROOT_PWD= $(grep "temporary password"  var/log/mysqld.log | awk '{print $NF}')
+DEFAULT_ROOT_PWD= $(grep "temporary password"  /var/log/mysqld.log | awk '{print $NF}')
 stat $?
 
 echo - n "Password reset of root user :"
