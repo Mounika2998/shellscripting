@@ -17,7 +17,7 @@ systemctl enable $COMPONENT-server &>> $LogFile
 systemctl start $COMPONENT-server
 
 echo -n "Creating $COMPONENT Application User: "
-rabbitmqctl add_user roboshop roboshop123 
+rabbitmqctl add_user roboshop roboshop123 &>> $LogFile
 stat $?
 #rabbitmqctl set_user_tags roboshop administrator
 
