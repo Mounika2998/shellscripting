@@ -13,7 +13,7 @@ yum install rabbitmq-server -y &>> $LogFile
 stat $?
 
 echo -n "Starting the $COMPONENT :"
-systemctl enable $COMPONENT-server 
+systemctl enable $COMPONENT-server &>> $LogFile
 systemctl start $COMPONENT-
 
 echo -n "Creating $COMPONENT Application User: "
