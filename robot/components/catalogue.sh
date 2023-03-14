@@ -51,6 +51,11 @@ mv /home/$APPUSER/$COMPONENT-main /home/$APPUSER/$COMPONENT
 chown -R $APPUSER:$APPUSER /home/$APPUSER/$COMPONENT
 stat $?
 
+echo -n "Installing the $COMPONENT Application:"
+cd /home/$APPUSER/$COMPONENT/ 
+npm install &>> $LogFile
+stat $?
+
 
 
 
