@@ -20,6 +20,14 @@ echo -n "Grab the default password:"
 DEFAULT_ROOT_PWD=$(grep "temporary password" /var/log/mysqld.log | awk '{print $NF}')
 stat $?
 
-echo - n "Password reset of root user :"
-echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';" | mysql --connect-expired-password -uroot -p"${DEFAULT_ROOT_PWD}" &>> $LogFile
+#This should execute only for the first time or wjen the default password is not changed
+echo "show databases;" | mysql -uroot -pRoboShop@1 &>> $LogFile
+if [ $? -ne 0 ] ; then
+    echo -n "Password reset of root user :"
+    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY 'RoboShop@1';" | mysql --connect-expired-password -uroot -p"${DEFAULT_ROOT_PWD}" &>> $LogFile
+    stat $?
+fi
+
+echo -n "Uninstalling the password validation plugin"
+echo "uninstall plugin validate_password;" | mysql -uroot -pRoboShop@1 &>> $LogFile
 stat $?
