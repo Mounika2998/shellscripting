@@ -1,26 +1,7 @@
 #!/bin/bash
 echo "I am redis"
 COMPONENT=redis
-LogFile=/tmp/$COMPONENT.log
-
-
-
-ID=$(id -u)
-
-if [ "$ID" -ne 0 ] ; then
-    echo -e "\e[31m you need to be root user to execute this command or prefix sudo before the command \e[0m"
-    exit 1
-
-fi 
-
-stat() {
-    if [ $1 -eq 0 ] ; then 
-        echo -e "\e[32m Success \e[0m"
-    else 
-        echo -e "\e[31m Failure \e[0m"
-        exit 2
-    fi 
-}
+source components/common.sh
 echo -n "Configuring the $COMPONENT repo:"
 curl -L https://raw.githubusercontent.com/stans-robot-project/redis/main/redis.repo -o /etc/yum.repos.d/redis.repo  &>> $LogFile
 stat $?
