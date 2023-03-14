@@ -54,7 +54,7 @@ NPM_INSTALL()
 CONFIG_SVC()
 {
     echo -n "Updating the systemd file with DB details:"
-    sed -i -e 's/REDIS_ENDPOINT/redis.roboshop.internal/'  -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/'  -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
+    sed -i -e 's/DBHOST_ENDPOINT/mysql.roboshop.internal/' -e 's/REDIS_ENDPOINT/redis.roboshop.internal/' -e 's/CARTENDPOINT/cart.roboshop.internal/'  -e 's/MONGO_ENDPOINT/mongodb.roboshop.internal/' -e 's/MONGO_DNSNAME/mongodb.roboshop.internal/'  -e 's/CATALOGUE_ENDPOINT/catalogue.roboshop.internal/' /home/$APPUSER/$COMPONENT/systemd.service
     mv /home/$APPUSER/$COMPONENT/systemd.service /etc/systemd/system/$COMPONENT.service
     stat $?
 
@@ -65,6 +65,37 @@ CONFIG_SVC()
 
     stat $?
 }
+
+MVN_PACKAGE()
+{
+    echo -n "Creating the $COMPONENT package:"
+    cd /home/$APPUSER/$COMPONENT/ 
+    mvn clean package &>> $LogFile
+    mv target/shipping-1.0.jar shipping.jar
+
+    stat $?
+
+
+}
+
+
+JAVA()
+{
+    echo -n "Installing maven :"
+    yum install maven -y &>> $LogFile
+    stat $?
+    #Calling the CREATE_USER function
+    CREATE_USER
+    #Calling the DOWNLOAD_AND_EXTRACT function
+    DOWNLOAD_AND_EXTRACT
+    #Calling the Maven Package
+    MVN_PACKAGE
+    #Calling the CONFIG_SVC function
+    CONFIG_SVC
+
+    
+}
+
 NODEJS() {
 
     echo -n "Configuring the repo:"
