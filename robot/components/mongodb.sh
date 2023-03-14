@@ -27,12 +27,12 @@ curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/stans
 stat $?
 
 echo -n "Installing $COMPONENT :"
-yum install -y mongodb-org  &>> $LOGFILE
+yum install -y mongodb-org  &>> $LogFile
 stat $? 
 
 echo -n "Starting $COMPONENT :"
-systemctl enable mongod     &>> $LOGFILE
-systemctl start mongod      &>> $LOGFILE
+systemctl enable mongod     &>> $LogFile
+systemctl start mongod      &>> $LogFile
 stat $? 
 
 
@@ -41,7 +41,7 @@ sed -i -e 's/127.0.0.1/0.0.0.0/' /etc/mongod.conf
 stat $? 
 
 echo -n "Performing Daemon-Reload : "
-systemctl daemon-reload  &>> $LOGFILE
+systemctl daemon-reload  &>> $LogFile
 systemctl restart mongod 
 stat $?
 
@@ -51,11 +51,11 @@ stat $?
 
 echo -n "Extracting the $COMPONENT schema : "
 cd /tmp 
-unzip -o $COMPONENT.zip  &>> $LOGFILE
+unzip -o $COMPONENT.zip  &>> $LogFile
 stat $? 
 
 echo -n "Injecting the schema :"
 cd /tmp/$COMPONENT-main
-mongo < catalogue.js    &>> $LOGFILE
-mongo < users.js        &>> $LOGFILE
+mongo < catalogue.js    &>> $LogFile
+mongo < users.js        &>> $LogFile
 stat $? 
