@@ -45,5 +45,6 @@ unzip -o $COMPONENT.zip &>> $LogFile
 stat $?
 
 echo -n "Injecting the Schema:"
+cd $COMPONENT-main
 mysql -u root -pRoboShop@1 <shipping.sql
 stat $?
