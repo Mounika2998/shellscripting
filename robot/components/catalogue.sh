@@ -29,8 +29,13 @@ echo -n "Installing  Nginx:"
 yum install nodejs -y  &>> $LogFile
 stat $?
 
-echo -n "creating the Application user account:"
-useradd $APPUSER &>> $LogFile
+id $APPUSER
+
+if [ $1 -ne 0 ] ; then 
+
+    echo -n "creating the Application user account:"
+    useradd $APPUSER 
+fi
 stat $?
 
 echo -n "Downloading the $COMPONENT component:"
