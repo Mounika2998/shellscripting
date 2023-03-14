@@ -1,2 +1,45 @@
 #!/bin/bash
 echo "I am catalogue"
+COMPONENT=catalogue
+LogFile=/tmp/$COMPONENT.log
+APPUSER=roboshop
+
+set -e
+ID=$(id -u)
+
+if [ "$ID" -ne 0 ] ; then
+    echo -e "\e[31m you need to be root user to execute this command or prefix sudo before the command \e[0m"
+    exit 1
+
+fi 
+
+stat() {
+    if [ $1 -eq 0 ] ; then 
+        echo -e "\e[32m Success \e[0m"
+    else 
+        echo -e "\e[31m Failure \e[0m"
+        exit 2
+    fi 
+}
+echo -n "Configuring the repo:"
+curl --silent --location https://rpm.nodesource.com/setup_16.x |  bash -
+stat $?
+
+echo -n "Installing  Nginx:"
+yum install nodejs -y  &>> $LogFile
+stat $?
+
+echo -n "creating the Application user account:"
+useradd $APPUSER &>> $LogFile
+stat $?
+
+echo -n "Downloading the $COMPONENT component:"
+curl -s -L -o /tmp/$COMPONENT.zip "https://github.com/stans-robot-project/$COMPONENT/archive/main.zip"  &>> $LogFile
+stat $? 
+
+
+
+
+
+
+```
