@@ -34,7 +34,7 @@ if [ $? -ne 0 ] ; then
     echo -n "creating the Application user account:"
     useradd $APPUSER 
 fi
-stat $?
+
 
 echo -n "Downloading the $COMPONENT component:"
 curl -s -L -o /tmp/$COMPONENT.zip "https://github.com/stans-robot-project/$COMPONENT/archive/main.zip"  &>> $LogFile
