@@ -14,7 +14,7 @@ stat $?
 
 echo -n "Starting the $COMPONENT :"
 systemctl enable $COMPONENT-server &>> $LogFile
-systemctl start $COMPONENT-
+systemctl start $COMPONENT-server
 
 echo -n "Creating $COMPONENT Application User: "
 rabbitmqctl add_user roboshop roboshop123 
