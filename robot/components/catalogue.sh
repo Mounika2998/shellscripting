@@ -22,7 +22,7 @@ stat() {
     fi 
 }
 echo -n "Configuring the repo:"
-curl --silent --location https://rpm.nodesource.com/setup_16.x |  bash -
+curl --silent --location https://rpm.nodesource.com/setup_16.x |  bash -  &>> $LogFile
 stat $?
 
 echo -n "Installing  Nginx:"
@@ -42,4 +42,4 @@ stat $?
 
 
 
-```
+
