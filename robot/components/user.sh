@@ -4,7 +4,7 @@ COMPONENT=user
 LogFile=/tmp/$COMPONENT.log
 APPUSER=roboshop
 
-set -e
+
 ID=$(id -u)
 
 if [ "$ID" -ne 0 ] ; then
