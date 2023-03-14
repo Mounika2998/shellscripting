@@ -27,9 +27,9 @@ stat $?
 
 echo -n "Installing  Nginx:"
 yum install nodejs -y  &>> $LogFile
-stat $?
+stat $? 
 
-id $APPUSER
+id $APPUSER &>> $LogFile
 
 if [ $1 -ne 0 ] ; then 
 
