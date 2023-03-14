@@ -45,6 +45,11 @@ cd /home/$APPUSER
 unzip -o /tmp/$COMPONENT.zip &>> $LogFile
 stat $?
 
+echo -n "Configuring the permissions:"
+mv /home/$APPUSER/$COMPONENT-main /home/$APPUSER/$COMPONENT
+chown -R $APPUSER:$APPUSER /home/$APPUSER$COMPONENT
+stat $?
+
 
 
 
