@@ -1,6 +1,7 @@
-#!/bin/bash
-echo "I am payment"
-COMPONENT=payment
-source components/common.sh #source is going to load the file, so that u can call all of them
+#!/bin/bash 
 
-PYTHON  
+COMPONENT=payment
+source components/common.sh    # Source is going to load the file, so that you can call all of them as per your need
+
+PYTHON                         # Calling NodeJS Function.
+

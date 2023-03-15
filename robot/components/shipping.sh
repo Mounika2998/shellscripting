@@ -1,9 +1,11 @@
-#!/bin/bash
-echo "I am shipping"
+#!/bin/bash 
+
 COMPONENT=shipping
-source components/common.sh     #source is going to load the file, so that u can call all of them
+source components/common.sh    # Source is going to load the file, so that you can call all of them as per your need
+
+JAVA                         # Calling JAVA Function.
 
 
-JAVA                        #calling JAVA function
 
-#source is a command to import and run the file
+
+

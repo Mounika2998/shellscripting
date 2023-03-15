@@ -1,15 +1,16 @@
-#!/bin/bash
-echo "I am Frontend"
-COMPONENT=frontend
-LogFile=/tmp/$COMPONENT.log
+#!/bin/bash 
 
-set -e
+# set -e 
+
+COMPONENT=frontend
+LOGFILE="/tmp/$COMPONENT.log"
+
+# Validting whether the executed user is a root user or not 
 ID=$(id -u)
 
-if [ "$ID" -ne 0 ] ; then
-    echo -e "\e[31m you need to be root user to execute this command or prefix sudo before the command \e[0m"
+if [ "$ID" -ne 0 ] ; then 
+    echo -e "\e[31m You should execute this script as a root user or with a sudo as prefix \e[0m" 
     exit 1
-
 fi 
 
 stat() {
@@ -21,39 +22,29 @@ stat() {
     fi 
 }
 
-echo -n "Installing the Nginx:"  
-yum install nginx -y &>> $LogFile
-stat $?
+echo -n "Installing Ngnix : "
+yum install nginx -y &>> $LOGFILE
+stat $? 
 
-
-
-
-
-echo -n "Dowloading the $COMPONENT compoment:"
+echo -n "Downloading the $COMPONENT component :"
 curl -s -L -o /tmp/$COMPONENT.zip "https://github.com/stans-robot-project/$COMPONENT/archive/main.zip"
+stat $? 
 
-stat $?
-echo -n "Performing the cleanup of old $COMPONENT component:"
+echo -n "Performing Cleanup of Old $COMPONENT Content :"
 cd /usr/share/nginx/html
-rm -rf *  &>> $LogFile
-stat $?
+rm -rf *  &>> $LOGFILE
+stat $? 
 
-echo -n "copying the downloaded $COMPONENT content:"
-unzip /tmp/$COMPONENT.zip &>> /tmp/$COMPONENT.log
-
-stat $?
-
+echo -n "Copying the downloaded $COMPONENT content: "
+unzip /tmp/$COMPONENT.zip  &>> $LOGFILE
 mv $COMPONENT-main/* .
 mv static/* .
 rm -rf $COMPONENT-main README.md
 mv localhost.conf /etc/nginx/default.d/roboshop.conf
 
-echo -n "Starting the service:"
+stat $? 
 
-systemctl daemon-reload
-systemctl enable nginx &>> $LogFile
-systemctl restart nginx &>> $LogFile
-stat $?
-
-
-
+echo -n "Starting the service: "
+systemctl enable nginx  &>> $LOGFILE
+systemctl restart nginx &>> $LOGFILE
+stat $? 

@@ -1,31 +1,32 @@
-#!/bin/bash
-echo "I am rabbitmq"
+#!/bin/bash 
+
+# set -e 
+
 COMPONENT=rabbitmq
-
 source components/common.sh 
-echo -n "Installing and Configuring the Depencdency:"
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh |  bash &>> $LogFile
-curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh |  bash &>> $LogFile
+
+echo -n "Installing and Configuring Dependency :"
+curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | sudo bash   &>> $LOGFILE
+curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | sudo bash &>> $LOGFILE
+stat $? 
+
+echo -n "Installing $COMPONENT :"
+yum install rabbitmq-server -y  &>> $LOGFILE 
+stat $? 
+
+echo -n "Starting $COMPONENT :"
+systemctl enable rabbitmq-server  &>> $LOGFILE 
+systemctl start rabbitmq-server   &>> $LOGFILE 
 stat $?
 
-echo -n "Installing $COMPONENT server:"
-yum install rabbitmq-server -y &>> $LogFile
-stat $?
-
-echo -n "Starting the $COMPONENT :"
-systemctl enable $COMPONENT-server &>> $LogFile
-systemctl start $COMPONENT-server
-stat $?
-
-rabbitmqctl list_users | grep $APPUSER &>> $LogFile
+rabbitmqctl list_users | grep $APPUSER  &>> $LOGFILE 
 if [ $? -ne 0 ] ; then 
-    echo -n "Creating $COMPONENT Application User: "
-    rabbitmqctl add_user roboshop roboshop123 &>> $LogFile
+    echo -n "Creating $COMPONENT Application User :"
+    rabbitmqctl add_user roboshop roboshop123  &>> $LOGFILE 
     stat $?
-fi
+fi 
 
-echo -n "Adding required priviliges to $APPUSER:"
-rabbitmqctl set_user_tags roboshop administrator &>> $LogFile
-rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*" &>> $LogFile
-stat $?
-
+echo -n "Adding required privileges to the $APPUSER :"
+rabbitmqctl set_user_tags roboshop administrator           &>> $LOGFILE 
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"   &>> $LOGFILE 
+stat $? 
