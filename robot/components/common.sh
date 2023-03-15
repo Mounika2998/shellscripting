@@ -92,6 +92,15 @@ PYTHON()
     cd /home/$APPUSER/$COMPONENT
     pip3 install -r requirements.txt &>> $LogFile
     stat $?
+    USERID=$(id -u roboshop)
+    GROUPID=$(id -g roboshop)
+    
+    echo -n "Updating the $COMPONENT.ini file :"
+    sed -i -e "/^uid/ c uid=${USERID}" -e "/^gid/ c gid=${GROUPID}"  /home/$APPUSER/$COMPONENT/$COMPONENT.ini 
+
+    # Calling Config-Svc Function
+    CONFIG_SVC
+
 } 
 
 
