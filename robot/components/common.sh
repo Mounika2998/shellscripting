@@ -78,6 +78,22 @@ MVN_PACKAGE()
 
 }
 
+PYTHON()
+{
+
+    echo -n "INstalling python and its dependencies:"
+    yum install python36 gcc python3-devel -y &>> $LogFile
+    stat $?
+    #Calling the CREATE_USER function
+    CREATE_USER
+    #Calling the DOWNLOAD_AND_EXTRACT function
+    DOWNLOAD_AND_EXTRACT
+
+    cd /home/$APPUSER/$COMPONENT
+    pip3 install -r requirements.txt &>> $LogFile
+    stat $?
+} 
+
 
 JAVA()
 {
