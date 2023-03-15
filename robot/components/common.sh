@@ -88,7 +88,7 @@ PYTHON()
     CREATE_USER
     #Calling the DOWNLOAD_AND_EXTRACT function
     DOWNLOAD_AND_EXTRACT
-
+    echo -n "Installing the $COMPONENT:"
     cd /home/$APPUSER/$COMPONENT
     pip3 install -r requirements.txt &>> $LogFile
     stat $?
