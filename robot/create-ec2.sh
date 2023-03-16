@@ -24,5 +24,5 @@ IPADDRESS=$(aws ec2 run-instances --image-id $AMI_ID \
 
 
 
-sed -e "s/COMPONENT/${COMPONENT}/" -e "s/IPADDRESS/${IPADDRESS}/" record.json > /tmp/record.json 
+sed -e "s/COMPONENT/${COMPONENT}/" -e "s/IPADDRESS/${IPADDRESS}/" robot/record.json > /tmp/record.json 
 #aws route53 change-resource-record-sets --hosted-zone-id $HOSTEDZONEID --change-batch file:///tmp/record.json | jq 
