@@ -14,6 +14,7 @@ AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=DevOps-LabImage-Cen
 SGID=$(aws ec2 describe-security-groups --filters Name=group-name,Values=B53-Allowall  | jq ".SecurityGroups[].GroupId" | sed -e 's/"//g')
 echo -n "Ami ID is $AMI_ID"
 
+cretae_server() {
 HOSTEDZONEID=Z0675622LCNBBN91K90Q
 echo -n "Launching the instance with $AMI_ID as AMI :"
 IPADDRESS=$(aws ec2 run-instances --image-id $AMI_ID \
@@ -27,6 +28,7 @@ IPADDRESS=$(aws ec2 run-instances --image-id $AMI_ID \
 sed -e "s/COMPONENT/${COMPONENT}/" -e "s/IPADDRESS/${IPADDRESS}/" robot/record.json > /tmp/record.json 
 aws route53 change-resource-record-sets --hosted-zone-id $HOSTEDZONEID --change-batch file:///tmp/record.json | jq 
 
+}
 if [ "$1" == "all" ] ; then 
     for component in frontend mongodb catalogue cart user mysql redis rabbitmq shipping payment ; do  
         COMPONENT=$component 
